@@ -3,7 +3,7 @@
 #include "conf_board.h"
 #include "conf_clock.h"
 
-#define PortaH PIO_PA6     
+#define PortaH PIO_PB0     
 
 /** PWM frequency in Hz */
 #define PWM_FREQUENCY      1000
@@ -71,8 +71,8 @@ void PWM_Handler(void)
 
 
 		//ul_duty = adc_duty; // Ciclo de trabalho do pwm recebe o ciclo do ADC, no caso, do potenciômetro
-		pio_set_input(PIOA, PortaH, LOW, DISABLE, ENABLE) = g_pwm_channel_led.channel;
-//PIN_PWM_LED1_CHANNEL; //canal habilitado pro pwm recebe o sinal ja padrao da atmal de pwm no led
+	g_pwm_channel_led.channel = PIN_PWM_LED1_CHANNEL;
+	 //canal habilitado pro pwm recebe o sinal ja padrao da atmal de pwm no led
 		pwm_channel_update_duty(PWM, &g_pwm_channel_led, ul_duty); // Atualiza o ciclo de trabaho do pwm3
 
 
@@ -282,5 +282,8 @@ int main(void)
 
 	/* Infinite loop */
 	while (1) {
+		
+		
+		pio_set_output(PIOB, PortaH, LOW, DISABLE, ENABLE);
 	}
 }
